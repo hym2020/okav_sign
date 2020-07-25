@@ -1,7 +1,7 @@
 import sign from './start_sign'
 
 const usr = process.env.USR.split('\n')
-	, pass = process.env.PASS.split('\n').split('\n')
+	, pass = process.env.PASS.split('\n')
 	, ids = usr.map((e, i) => Object.defineProperties({}, {
 		usr: {
 			value: e,
