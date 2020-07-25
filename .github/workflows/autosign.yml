@@ -1,0 +1,34 @@
+name: autosign
+on:
+    push:
+        branches:
+            - master
+    schedule:
+        - cron: "25 16 * * *"
+jobs:
+    start_sign:
+        name: start_daily_sign
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@master
+            - uses: actions/setup-node@v2-beta
+              with:
+                node-version: '14'
+            - name: okav autosign
+              shell: bash
+              env:
+                LINE_USERID: ${{ secrets.LINE_USERID }}
+                LINECHANNEL: ${{ secrets.LINECHANNEL }}
+                LINESECRET: ${{ secrets.LINESECRET }}
+                LINECHANNELTOKEN: ${{ secrets.LINECHANNELTOKEN }}
+                USR: ${{ secrets.USR }}
+                PASS: ${{ secrets.PASS }}
+              run: |
+                echo "Install Dependencies"
+                npm i
+                echo "Build Scripts"
+                npm run build
+                echo "Start Script"
+                npm run sign
+    
